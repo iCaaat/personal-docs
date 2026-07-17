@@ -20,6 +20,6 @@ app:
   jwt.access-expiration-minutes: ${JWT_ACCESS_EXPIRATION_MINUTES:30}
   jwt.refresh-expiration-hours: ${JWT_REFRESH_EXPIRATION_HOURS:168}
   storage.path: ${STORAGE_PATH:./uploads}
-  preview.libre-office-command: ${LIBRE_OFFICE_COMMAND:libreoffice}
+  preview.libre-office-command: ${LIBRE_OFFICE_COMMAND:soffice}
   preview.timeout-seconds: ${PREVIEW_TIMEOUT_SECONDS:120}
   bootstrap-admin.password: ${BOOTSTRAP_ADMIN_PASSWORD:ChangeMe_123!}
