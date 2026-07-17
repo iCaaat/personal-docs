@@ -1,0 +1,25 @@
+spring:
+  application.name: personal-docs-api
+  datasource:
+    url: jdbc:h2:file:./data/personal-docs;MODE=MYSQL;DATABASE_TO_LOWER=TRUE
+    username: sa
+    password:
+  jpa:
+    hibernate.ddl-auto: update
+    open-in-view: false
+  servlet.multipart.max-file-size: 100MB
+  servlet.multipart.max-request-size: 100MB
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      timeout: 3s
+app:
+  jwt.secret: ${JWT_SECRET:replace-this-development-secret-with-at-least-32-characters}
+  jwt.access-expiration-minutes: ${JWT_ACCESS_EXPIRATION_MINUTES:30}
+  jwt.refresh-expiration-hours: ${JWT_REFRESH_EXPIRATION_HOURS:168}
+  storage.path: ${STORAGE_PATH:./uploads}
+  preview.libre-office-command: ${LIBRE_OFFICE_COMMAND:libreoffice}
+  preview.timeout-seconds: ${PREVIEW_TIMEOUT_SECONDS:120}
+  bootstrap-admin.password: ${BOOTSTRAP_ADMIN_PASSWORD:ChangeMe_123!}

@@ -1,0 +1,48 @@
+services:
+  mysql:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: personal_docs
+      MYSQL_USER: personal_docs
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+  api:
+    build: ./backend
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      JWT_SECRET: ${JWT_SECRET}
+      DB_PASSWORD: ${DB_PASSWORD}
+      BOOTSTRAP_ADMIN_PASSWORD: ${BOOTSTRAP_ADMIN_PASSWORD}
+      STORAGE_PATH: /data/uploads
+      REDIS_HOST: redis
+    volumes:
+      - document-data:/data/uploads
+  web:
+    build: ./frontend
+    restart: unless-stopped
+    depends_on: [api]
+    ports: ["8088:80"]
+  redis:
+    image: redis:5.0.14-alpine
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+volumes:
+  mysql-data:
+  document-data:
+  redis-data:

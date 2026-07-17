@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:mysql://mysql:3306/personal_docs?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai}
+    username: ${DB_USERNAME:personal_docs}
+    password: ${DB_PASSWORD}
+  # Use Flyway and change this to validate once schema migrations are introduced.
+  jpa.hibernate.ddl-auto: update
